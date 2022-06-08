@@ -1,0 +1,27 @@
+{
+  "name": "example-project",
+  "version": "1.0.0",
+  "description": "A example Node.js project using Taddy's API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mock-webhook-event": "node mock-webhook-event.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taddyorg/example-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taddyorg/example-project/issues"
+  },
+  "homepage": "https://github.com/taddyorg/example-project#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "graphql": "^16.5.0",
+    "graphql-request": "^4.2.0",
+    "lodash": "^4.17.21"
+  }
+}
