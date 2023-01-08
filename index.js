@@ -59,7 +59,7 @@ const GET_PODCASTSERIES = gql`
       rssOwnerName
       rssOwnerPublicEmail
       authorName
-      isComplete
+      isCompleted
       isBlocked
       itunesId
       genres
@@ -128,6 +128,80 @@ const GET_ITUNESINFO = gql`
   }
 `
 
+const GET_COMICSERIES = (uuid, index) => `
+  event${index}: getComicSeries(uuid: "${uuid}") {
+    uuid
+    name
+    description
+    hash
+    issuesHash
+    datePublished
+    coverImageAsString
+    bannerImageAsString
+    thumbnailImageAsString
+    tags
+    genres
+    language
+    contentRating
+    seriesType
+    sssUrl
+    sssOwnerName
+    sssOwnerPublicEmail
+    copyright
+    isBlocked
+  }
+`
+
+const GET_COMICISSUE = (uuid, index) => `
+  event${index}: getComicIssue(uuid: "${uuid}") {
+    uuid
+    seriesUuid
+    name
+    creatorNote
+    hash
+    storiesHash
+    datePublished
+    bannerImageAsString
+    thumbnailImageAsString
+    stories{
+      uuid
+      hash
+      storyImageAsString
+    }
+    isRemoved
+    isBlocked
+  }
+`
+
+const GET_CREATOR = (uuid, index) => `
+  event${index}: getCreator(uuid: "${uuid}") {
+    uuid
+    name
+    bio
+    hash
+    contentHash
+  	avatarImageAsString
+    tags
+    country
+    linksAsString
+    sssUrl
+    sssOwnerName
+    sssOwnerPublicEmail
+    copyright
+    isBlocked
+  }
+`
+
+const GET_CREATORCONTENT = (uuid, index) => `
+  event${index}: getCreatorContent(uuid: "${uuid}") {
+    hash
+    creatorUuid
+    contentUuid
+    contentType
+    roles
+  }
+`
+
 module.exports = {
   taddyGraphqlRequest,
   taddyQuery: {
@@ -135,5 +209,9 @@ module.exports = {
     GET_PODCASTSERIES,
     GET_PODCASTEPISODE,
     GET_ITUNESINFO,
+    GET_COMICSERIES,
+    GET_COMICISSUE,
+    GET_CREATOR,
+    GET_CREATORCONTENT,
   }
 }

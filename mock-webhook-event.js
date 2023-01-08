@@ -13,6 +13,8 @@ async function run(){
     throw new Error(`${webhookEvent} is not a valid webhook event. Please see https://taddy.org/developers/podcast-api/webhooks for a full list of valid events.`);
   }else if(!uuid) {
     throw new Error("You must pass in a uuid as the second argument");
+  }else if(!process.env.WEBHOOK_ENDPOINT_URL) {
+    throw new Error("You must set the WEBHOOK_ENDPOINT_URL environment variable in your .env file");
   }
 
   const [taddyType, action] = webhookEvent.split('.');
@@ -28,8 +30,12 @@ async function run(){
 
 const validWebhookEvents = new Set([
   'podcastseries.created', 'podcastseries.updated', 'podcastseries.deleted', 'podcastseries.new_episodes_released',
+  'podcastepisode.created', 'podcastepisode.updated', 'podcastepisode.deleted',
   'itunesinfo.created', 'itunesinfo.updated', 'itunesinfo.deleted',
-  'podcastepisode.created', 'podcastepisode.updated', 'podcastepisode.deleted'
+  'comicseries.created', 'comicseries.updated', 'comicseries.deleted', 'comicseries.new_issues_released',
+  'comicissue.created', 'comicissue.updated', 'comicissue.deleted',
+  'creator.created', 'creator.updated', 'creator.deleted', 'creator.new_content_released',
+  'creatorcontent.created', 'creatorcontent.updated', 'creatorcontent.deleted',
 ])
 
 function getQuery({ taddyType }){
@@ -40,6 +46,14 @@ function getQuery({ taddyType }){
       return taddyQuery.GET_PODCASTEPISODE;
     case 'itunesinfo':
       return taddyQuery.GET_ITUNESINFO;
+    case 'comicseries':
+      return taddyQuery.GET_COMICSERIES;
+    case 'comicissue':
+      return taddyQuery.GET_COMICISSUE;
+    case 'creator':
+      return taddyQuery.GET_CREATOR;
+    case 'creatorcontent':
+      return taddyQuery.GET_CREATORCONTENT;
     default:
       throw new Error(`ERROR in getQuery: taddyType: ${taddyType} is not supported`);
   }
@@ -53,6 +67,14 @@ function getDataProperty({ taddyType }){
       return 'getPodcastEpisode';
     case 'itunesinfo':
       return 'getItunesInfo';
+    case 'comicseries':
+      return 'getComicSeries';
+    case 'comicissue':
+      return 'getComicIssue';
+    case 'creator':
+      return 'getCreator';
+    case 'creatorcontent':
+      return 'getCreatorContent';
     default:
       throw new Error(`ERROR in getDataProperty: taddyType: ${taddyType} is not supported`);
   }
@@ -61,7 +83,7 @@ function getDataProperty({ taddyType }){
 function createMockWebhookEvent({ data, taddyType, action, uuid}){
   const dataForEvent = get(data, getDataProperty({ taddyType }), null);
   if (!dataForEvent) {
-    throw new Error(`ERROR in createMockWebhookEvent: no data returned for taddyType: ${taddyType} and uuid: ${uuid}. Usually this means the uuid is not correct.`);
+    throw new Error(`ERROR in createMockWebhookEvent: no data returned for taddyType: ${taddyType} and uuid: ${uuid}.`);
   }
   return {
     uuid,
@@ -72,7 +94,7 @@ function createMockWebhookEvent({ data, taddyType, action, uuid}){
   }
 }
 
-async function sendMockEventToEndpointUrl({ mockEvent, endpointUrl }) {
+async function sendMockEventToEndpointUrl({ mockEvent }) {
   try { 
     const options = {
       method: 'POST',
@@ -88,7 +110,7 @@ async function sendMockEventToEndpointUrl({ mockEvent, endpointUrl }) {
     
     await axios(options);
   }catch(error){
-    console.log('sendMockEventToEndpointUrl error sending to ', endpointUrl, error && error.message);
+    console.log('sendMockEventToEndpointUrl error sending to ', process.env.WEBHOOK_ENDPOINT_URL, error && error.message);
   }
 }
 
