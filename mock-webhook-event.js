@@ -8,9 +8,9 @@ async function run(){
   const uuid = inputs[1];
 
   if(!webhookEvent) { 
-    throw new Error("You must pass in a webhook event as the first argument. Please see https://taddy.org/developers/podcast-api/webhooks for a full list of valid events."); 
+    throw new Error("You must pass in a webhook event as the first argument. Valid webhook events are: " + [...validWebhookEvents].join(', ')); 
   }else if ( !validWebhookEvents.has(webhookEvent)) {
-    throw new Error(`${webhookEvent} is not a valid webhook event. Please see https://taddy.org/developers/podcast-api/webhooks for a full list of valid events.`);
+    throw new Error(`${webhookEvent} is not a valid webhook event. Valid webhook events are: ${[...validWebhookEvents].join(', ')}`);
   }else if(!uuid) {
     throw new Error("You must pass in a uuid as the second argument");
   }else if(!process.env.WEBHOOK_ENDPOINT_URL) {
