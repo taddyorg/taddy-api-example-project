@@ -83,7 +83,7 @@ function getDataProperty({ taddyType }){
 function createMockWebhookEvent({ data, taddyType, action, uuid}){
   const dataForEvent = get(data, getDataProperty({ taddyType }), null);
   if (!dataForEvent) {
-    throw new Error(`ERROR in createMockWebhookEvent: no data returned for taddyType: ${taddyType} and uuid: ${uuid}.`);
+    throw new Error(`ERROR in createMockWebhookEvent: no data returned for taddyType: ${taddyType} and uuid: ${uuid}`);
   }
   return {
     uuid,

@@ -128,77 +128,88 @@ const GET_ITUNESINFO = gql`
   }
 `
 
-const GET_COMICSERIES = (uuid, index) => `
-  event${index}: getComicSeries(uuid: "${uuid}") {
-    uuid
-    name
-    description
-    hash
-    issuesHash
-    datePublished
-    coverImageAsString
-    bannerImageAsString
-    thumbnailImageAsString
-    tags
-    genres
-    language
-    contentRating
-    seriesType
-    sssUrl
-    sssOwnerName
-    sssOwnerPublicEmail
-    copyright
-    isBlocked
-  }
-`
-
-const GET_COMICISSUE = (uuid, index) => `
-  event${index}: getComicIssue(uuid: "${uuid}") {
-    uuid
-    seriesUuid
-    name
-    creatorNote
-    hash
-    storiesHash
-    datePublished
-    bannerImageAsString
-    thumbnailImageAsString
-    stories{
+const GET_COMICSERIES = gql`
+  query GetComicSeries($uuid: ID) {
+    getComicSeries(uuid: $uuid) {
       uuid
+      name
+      description
       hash
-      storyImageAsString
+      issuesHash
+      datePublished
+      coverImageAsString
+      bannerImageAsString
+      thumbnailImageAsString
+      tags
+      genres
+      language
+      contentRating
+      seriesType
+      sssUrl
+      sssOwnerName
+      sssOwnerPublicEmail
+      copyright
+      isCompleted
+      isBlocked
     }
-    isRemoved
-    isBlocked
   }
 `
 
-const GET_CREATOR = (uuid, index) => `
-  event${index}: getCreator(uuid: "${uuid}") {
-    uuid
-    name
-    bio
-    hash
-    contentHash
-  	avatarImageAsString
-    tags
-    country
-    linksAsString
-    sssUrl
-    sssOwnerName
-    sssOwnerPublicEmail
-    copyright
-    isBlocked
+const GET_COMICISSUE = gql`
+  query GetComicIssue($uuid: ID) {
+    getComicIssue(uuid: $uuid) {
+      uuid
+      seriesUuid
+      name
+      creatorNote
+      hash
+      storiesHash
+      datePublished
+      bannerImageAsString
+      thumbnailImageAsString
+      stories{
+        uuid
+        hash
+        storyImageAsString
+      }
+      isRemoved
+      isBlocked
+    }
   }
 `
 
-const GET_CREATORCONTENT = (uuid, index) => `
-  event${index}: getCreatorContent(uuid: "${uuid}") {
-    hash
-    creatorUuid
-    contentUuid
-    contentType
-    roles
+const GET_CREATOR = gql`
+  query GetCreator($uuid: ID) {
+    getCreator(uuid: $uuid) {
+      uuid
+      name
+      bio
+      hash
+      contentHash
+      avatarImageAsString
+      tags
+      country
+      linksAsString
+      sssUrl
+      sssOwnerName
+      sssOwnerPublicEmail
+      copyright
+      isBlocked
+    }
+  }
+`
+
+const GET_CREATORCONTENT = gql`
+  query GetCreatorContent($uuid: ID) {
+    getCreatorContent(uuid: $uuid) {
+      hash
+      creatorUuid
+      contentUuid
+      contentType
+      roles
+      position
+      contentPosition
+    }
   }
 `
 
