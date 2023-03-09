@@ -172,6 +172,7 @@ const GET_COMICISSUE = gql`
         hash
         storyImageAsString
       }
+      position
       isRemoved
       isBlocked
     }
