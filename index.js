@@ -134,6 +134,7 @@ const GET_COMICSERIES = gql`
       uuid
       name
       description
+      status
       hash
       issuesHash
       datePublished
@@ -145,11 +146,11 @@ const GET_COMICSERIES = gql`
       language
       contentRating
       seriesType
+      seriesLayout
       sssUrl
       sssOwnerName
       sssOwnerPublicEmail
       copyright
-      isCompleted
       isBlocked
     }
   }
