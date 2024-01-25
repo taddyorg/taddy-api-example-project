@@ -36,6 +36,7 @@ const validWebhookEvents = new Set([
   'comicissue.created', 'comicissue.updated', 'comicissue.deleted',
   'creator.created', 'creator.updated', 'creator.deleted', 'creator.new_content_released',
   'creatorcontent.created', 'creatorcontent.updated', 'creatorcontent.deleted',
+  'hostingprovider.created', 'hostingprovider.updated', 'hostingprovider.deleted',
 ])
 
 function getQuery({ taddyType }){
@@ -54,6 +55,8 @@ function getQuery({ taddyType }){
       return taddyQuery.GET_CREATOR;
     case 'creatorcontent':
       return taddyQuery.GET_CREATORCONTENT;
+    case 'hostingprovider':
+      return taddyQuery.GET_HOSTINGPROVIDER;
     default:
       throw new Error(`ERROR in getQuery: taddyType: ${taddyType} is not supported`);
   }
@@ -75,6 +78,8 @@ function getDataProperty({ taddyType }){
       return 'getCreator';
     case 'creatorcontent':
       return 'getCreatorContent';
+    case 'hostingprovider':
+      return 'getHostingProvider';
     default:
       throw new Error(`ERROR in getDataProperty: taddyType: ${taddyType} is not supported`);
   }

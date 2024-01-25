@@ -65,4 +65,6 @@ yarn mock-webhook-event comicseries.updated 96cc49d7-a95d-4266-b408-b57c7d26a62e
 yarn mock-webhook-event comicissue.updated a542ad55-4ebf-456d-b6c8-a4e8e3fd81ae
 yarn mock-webhook-event creator.updated 87aa38ce-2960-4fde-83e6-e638a2d77b2d
 yarn mock-webhook-event creatorcontent.updated 7a9abd90-0c1a-465c-b873-e0f8be1359dc
+yarn mock-webhook-event hostingprovider.updated e9957105-80e4-46e3-8e82-20472b9d7512
+```
 ```

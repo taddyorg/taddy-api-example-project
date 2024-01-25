@@ -152,6 +152,11 @@ const GET_COMICSERIES = gql`
       sssOwnerPublicEmail
       copyright
       isBlocked
+      hostingProvider{
+        uuid
+        sssUrl
+      }
+      scopesForExclusiveContent
     }
   }
 `
@@ -163,6 +168,7 @@ const GET_COMICISSUE = gql`
       seriesUuid
       name
       creatorNote
+      pushNotificationMessage
       hash
       storiesHash
       datePublished
@@ -174,6 +180,8 @@ const GET_COMICISSUE = gql`
         storyImageAsString
       }
       position
+      scopesForExclusiveContent
+      dateExclusiveContentIsAvailable
       isRemoved
       isBlocked
     }
@@ -215,6 +223,28 @@ const GET_CREATORCONTENT = gql`
   }
 `
 
+const GET_HOSTINGPROVIDER = gql`
+  query GetHostingProvider($uuid: ID) {
+    getHostingProvider(uuid: $uuid) {
+      uuid
+      hash
+      oauth{
+        signupUrl
+        authorizeUrl
+        tokenUrl
+        newAccessTokenUrl
+        newRefreshTokenUrl
+        newContentTokenUrl
+        instructionsUrl
+      }
+      sssUrl
+      sssOwnerName
+      sssOwnerPublicEmail
+      isBlocked
+    }
+  }
+`
+
 module.exports = {
   taddyGraphqlRequest,
   taddyQuery: {
@@ -226,5 +256,6 @@ module.exports = {
     GET_COMICISSUE,
     GET_CREATOR,
     GET_CREATORCONTENT,
+    GET_HOSTINGPROVIDER,
   }
 }
