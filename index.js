@@ -229,6 +229,7 @@ const GET_HOSTINGPROVIDER = gql`
       uuid
       hash
       oauth{
+        uuid
         signupUrl
         authorizeUrl
         tokenUrl
