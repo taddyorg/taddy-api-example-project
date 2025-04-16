@@ -64,6 +64,7 @@ const GET_PODCASTSERIES = gql`
       itunesId
       genres
       childrenHash
+      popularityRank
       itunesInfo{
         uuid
         publisherId
